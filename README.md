@@ -1,5 +1,10 @@
 # Project Startup Instruction Through || Iskraemeco
 
+ 
+## Build the Project
+
+`$ mvn clean install`
+
 ## Run
 
 `$ docker-compose build && docker-compose up`
