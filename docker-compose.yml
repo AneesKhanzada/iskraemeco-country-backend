@@ -1,0 +1,28 @@
+version: '3'
+services:
+  postgres-db:
+    container_name: postgres-db
+    image: ghusta/postgres-world-db:latest
+    restart: always
+    expose:
+    - '5432'
+    ports:
+    - 5432:5432
+    environment:
+      POSTGRES_USER: world
+      POSTGRES_PASSWORD: world123
+      POSTGRES_DB: world-db
+  country-management:
+    restart: on-failure
+    build: ./
+    expose:
+    - '8080'
+    ports:
+    - 8080:8080
+    environment:
+      WAIT_HOSTS: ghusta/postgres-world-db:5432
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/world-db
+      SPRING_DATASOURCE_USERNAME: world
+      SPRING_DATASOURCE_PASSWORD: world123
+    depends_on:
+    - postgres-db
